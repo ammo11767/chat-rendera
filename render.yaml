@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: chat-web
+    env: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    autoDeploy: true
+    disks:
+      - name: chat-disk
+        mountPath: /var/www/html
+        sizeGB: 1
+    envVars:
+      - key: WEBSOCKET_URL
+        value: wss://chat-socket.onrender.com
+
+  - type: web
+    name: chat-socket
+    runtime: node
+    plan: free
+    rootDir: signaling_server
+    buildCommand: npm install
+    startCommand: node index.js
