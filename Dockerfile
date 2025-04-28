@@ -1,11 +1,7 @@
-# Dockerfile
 FROM php:8.2-apache
 
-# No hace falta volver a compilar pdo/pdo_sqlite
-# Si en el futuro necesitas otra extensión:
-# RUN docker-php-ext-install mysqli
-
+# PDO y SQLite YA están incluidos; no vuelvas a compilarlos
 RUN a2enmod rewrite
 
-# Copia tu app (ajusta la ruta si usas /public)
+# Copia todo el proyecto (ajusta si usas carpeta /public)
 COPY . /var/www/html/
